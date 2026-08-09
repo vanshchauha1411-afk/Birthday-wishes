@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Birthday Wishes 🎂</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #fff1f8, #f3e8ff, #e0f2fe);
+      color: #292235;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 850px;
+      margin: auto;
+      padding: 40px 0;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 45px 20px 30px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 7vw, 4.5rem);
+      margin: 0 0 10px;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      margin: 8px auto;
+      max-width: 650px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.9);
+      border-radius: 24px;
+      padding: 28px;
+      margin-top: 25px;
+      box-shadow: 0 15px 45px rgba(60, 30, 80, 0.12);
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin: 15px 0 8px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 16px;
+      font-family: inherit;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #b76cff;
+      box-shadow: 0 0 0 3px rgba(183,108,255,0.12);
+    }
+
+    .checkbox {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .checkbox input {
+      width: auto;
+    }
+
+    button {
+      border: 0;
+      border-radius: 14px;
+      padding: 14px 22px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      background: #8b5cf6;
+      color: white;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .status {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 12px;
+      display: none;
+      line-height: 1.5;
+    }
+
+    .success {
+      display: block;
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .error {
+      display: block;
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .info {
+      display: block;
+      background: #e0f2fe;
+      color: #075985;
+    }
+
+    .wishes {
+      display: none;
+    }
+
+    .wish {
+      background: #faf7ff;
+      border-radius: 18px;
+      padding: 20px;
+      margin: 15px 0;
+      border: 1px solid #eee;
+    }
+
+    .wish-name {
+      font-weight: bold;
+      font-size: 1.05rem;
+    }
+
+    .wish-message {
+      margin-top: 10px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    .wish-date {
+      margin-top: 10px;
+      font-size: 0.82rem;
+      color: #777;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 0;
+      color: #777;
+      font-size: 14px;
+    }
+
+    .login-box {
+      margin-top: 25px;
+      text-align: center;
+    }
+
+    .small {
+      font-size: 14px;
+      color: #777;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <section class="hero">
+    <div style="font-size: 55px;">🎂✨</div>
+
+    <h1>Birthday Wishes</h1>
+
+    <p>
+      Leave a special message for <strong>Physcho G</strong> 💖
+    </p>
+
+    <p class="small">
+      Your wish will be kept private until her birthday.
+    </p>
+  </section>
+
+
+  <!-- WISH SUBMISSION -->
+  <section class="card" id="wishSection">
+
+    <h2>💌 Leave a Birthday Wish</h2>
+
+    <p>
+      Write something special that she can read on her birthday.
+    </p>
+
+    <form id="wishForm">
+
+      <label for="senderName">
+        Your Name
+      </label>
+
+      <input
+        id="senderName"
+        type="text"
+        maxlength="100"
+        placeholder="Enter your name"
+        required
+      >
+
+      <label for="message">
+        Your Birthday Message
+      </label>
+
+      <textarea
+        id="message"
+        maxlength="2000"
+        placeholder="Write your birthday wish here..."
+        required
+      ></textarea>
+
+      <label class="checkbox">
+        <input
+          type="checkbox"
+          id="showName"
+          checked
+        >
+        Show my name with my wish
+      </label>
+
+      <button type="submit" id="submitButton">
+        Send Birthday Wish 💖
+      </button>
+
+    </form>
+
+    <div id="formStatus" class="status"></div>
+
+  </section>
+
+
+  <!-- BIRTHDAY SECTION -->
+  <section class="card hidden" id="birthdaySection">
+
+    <h2>🎉 Birthday Wishes 🎉</h2>
+
+    <p>
+      Here are the beautiful wishes waiting for you. 💖
+    </p>
+
+    <div id="wishesContainer">
+      Loading wishes...
+    </div>
+
+  </section>
+
+
+  <footer>
+    Made with ❤️ for a very special birthday.
+  </footer>
+
+</div>
+
+
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+  /* =========================================================
+     SUPABASE CONNECTION
+     ========================================================= */
+
+  const SUPABASE_URL = "https://qnfmhtdocukgyzjybfgt.supabase.co";
+
+  const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_qmwAIM8mGojJcDvTPloF1w_27QmTs90";
+
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+
+  /* =========================================================
+     BIRTHDAY SETTINGS
+     ========================================================= */
+
+  /*
+     Birthday starts:
+     29 August at 12:01 AM
+
+     IMPORTANT:
+     This uses India Standard Time (IST).
+  */
+
+  const BIRTHDAY_START = new Date(
+    "2026-08-29T00:01:00+05:30"
+  );
+
+
+  /*
+     Wishes can be submitted before and during
+     the birthday.
+
+     We are not putting an early start restriction here.
+     That means the collection form remains available
+     whenever the website is online.
+  */
+
+
+  /* =========================================================
+     CHECK BIRTHDAY TIME
+     ========================================================= */
+
+  function birthdayHasStarted() {
+
+    const now = new Date();
+
+    return now >= BIRTHDAY_START;
+  }
+
+
+  /* =========================================================
+     SHOW BIRTHDAY SECTION
+     ========================================================= */
+
+  async function checkBirthdayStatus() {
+
+    const birthdaySection =
+      document.getElementById("birthdaySection");
+
+    if (!birthdayHasStarted()) {
+
+      birthdaySection.classList.add("hidden");
+
+      return;
+    }
+
+    /*
+      The birthday section is intentionally shown
+      only after the birthday starts.
+    */
+
+    birthdaySection.classList.remove("hidden");
+
+    await loadWishes();
+  }
+
+
+  /* =========================================================
+     SUBMIT WISH
+     ========================================================= */
+
+  document
+    .getElementById("wishForm")
+    .addEventListener("submit", async function(event) {
+
+      event.preventDefault();
+
+      const senderName =
+        document.getElementById("senderName").value.trim();
+
+      const message =
+        document.getElementById("message").value.trim();
+
+      const showName =
+        document.getElementById("showName").checked;
+
+      const button =
+        document.getElementById("submitButton");
+
+      const status =
+        document.getElementById("formStatus");
+
+
+      if (!senderName || !message) {
+
+        status.className = "status error";
+
+        status.textContent =
+          "Please enter your name and birthday message.";
+
+        return;
+      }
+
+
+      button.disabled = true;
+
+      button.textContent = "Sending...";
+
+
+      try {
+
+        const { error } =
+          await supabaseClient
+            .from("birthday_wishes")
+            .insert({
+
+              sender_name: senderName,
+
+              message: message,
+
+              show_name: showName
+
+            });
+
+
+        if (error) {
+
+          throw error;
+
+        }
+
+
+        status.className = "status success";
+
+        status.textContent =
+          "Your birthday wish has been saved successfully! 💖";
+
+
+        document
+          .getElementById("wishForm")
+          .reset();
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        status.className = "status error";
+
+        status.textContent =
+          "Something went wrong while saving your wish. Please try again.";
+
+      }
+
+
+      button.disabled = false;
+
+      button.textContent =
+        "Send Birthday Wish 💖";
+
+    });
+
+
+  /* =========================================================
+     LOAD WISHES
+     ========================================================= */
+
+  async function loadWishes() {
+
+    const container =
+      document.getElementById("wishesContainer");
+
+
+    if (!birthdayHasStarted()) {
+
+      return;
+
+    }
+
+
+    const { data, error } =
+      await supabaseClient
+        .from("birthday_wishes")
+        .select("*")
+        .order("created_at", {
+          ascending: true
+        });
+
+
+    if (error) {
+
+      console.error(error);
+
+      container.innerHTML =
+        "<p>Unable to load wishes right now.</p>";
+
+      return;
+
+    }
+
+
+    if (!data || data.length === 0) {
+
+      container.innerHTML =
+        "<p>No wishes have been submitted yet. 💕</p>";
+
+      return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    data.forEach(function(wish) {
+
+      const wishElement =
+        document.createElement("div");
+
+      wishElement.className = "wish";
+
+
+      const name =
+        wish.show_name
+          ? escapeHTML(wish.sender_name)
+          : "Someone special 💖";
+
+
+      const message =
+        escapeHTML(wish.message);
+
+
+      const date =
+        wish.created_at
+          ? new Date(wish.created_at).toLocaleString(
+              "en-IN",
+              {
+                dateStyle: "medium",
+                timeStyle: "short"
+              }
+            )
+          : "";
+
+
+      wishElement.innerHTML = `
+
+        <div class="wish-name">
+          ${name}
+        </div>
+
+        <div class="wish-message">
+          ${message}
+        </div>
+
+        <div class="wish-date">
+          ${date}
+        </div>
+
+      `;
+
+
+      container.appendChild(wishElement);
+
+    });
+
+  }
+
+
+  /* =========================================================
+     SECURITY HELPER
+     ========================================================= */
+
+  function escapeHTML(text) {
+
+    const div =
+      document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+
+  }
+
+
+  /* =========================================================
+     START
+     ========================================================= */
+
+  checkBirthdayStatus();
+
+</script>
+
+</body>
+</html>
