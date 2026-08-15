@@ -2614,39 +2614,31 @@ Happy birthday. ♡
        PRIVATE PHOTO SIGNED URL
        ========================================================= */
 
-    async function getPrivatePhotoUrl(
-      filename
-    ) {
+   async function getPrivatePhotoUrl(filename) {
 
-      const {
-        data,
-        error
-      } =
-        await supabaseClient
-          .storage
-          .from(PRIVATE_BUCKET)
-          .createSignedUrl(
-            filename,
-            60 * 60
-          );
+  const {
+    data,
+    error
+  } = await supabaseClient
+    .storage
+    .from(PRIVATE_BUCKET)
+    .createSignedUrl(
+      filename,
+      60 * 60 * 24
+    );
 
-      if (error) {
+  if (error) {
+    console.error(
+      "Photo error:",
+      filename,
+      error
+    );
 
-        console.error(
-          "Photo error:",
-          filename,
-          error
-        );
+    return null;
+  }
 
-        return null;
-
-      }
-
-      return data
-        ? data.signedUrl
-        : null;
-
-    }
+  return data?.signedUrl || null;
+}
 
 
     /* =========================================================
