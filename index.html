@@ -3,384 +3,1048 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Birthday Wishes 🎂</title>
+  <meta name="theme-color" content="#f7f1ea">
+  <title>Birthday Wishes for Weirdo ♡</title>
 
   <style>
+    :root {
+      --w-bg: #fbf8f4;
+      --w-paper: #fffdf9;
+      --w-ink: #302b2b;
+      --w-muted: #756d6b;
+      --w-accent: #b77d86;
+      --w-accent-dark: #8f5d67;
+      --w-line: #e8ddd5;
+      --w-shadow: 0 18px 50px rgba(72, 52, 52, 0.10);
+
+      --s-bg: #e9dfcf;
+      --s-paper: #f8f0e2;
+      --s-paper-2: #fffaf0;
+      --s-ink: #3f3832;
+      --s-muted: #766b61;
+      --s-pink: #c99a9d;
+      --s-brown: #8a7461;
+      --s-line: rgba(90, 72, 55, 0.18);
+    }
+
     * {
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #fff1f8, #f3e8ff, #e0f2fe);
-      color: #292235;
+      color: var(--w-ink);
+      background: var(--w-bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       min-height: 100vh;
     }
 
-    .container {
-      width: 92%;
-      max-width: 850px;
-      margin: auto;
-      padding: 40px 0;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 45px 20px 30px;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.2rem, 7vw, 4.5rem);
-      margin: 0 0 10px;
-    }
-
-    .hero p {
-      font-size: 1.15rem;
-      line-height: 1.6;
-      margin: 8px auto;
-      max-width: 650px;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.9);
-      border-radius: 24px;
-      padding: 28px;
-      margin-top: 25px;
-      box-shadow: 0 15px 45px rgba(60, 30, 80, 0.12);
-    }
-
-    label {
-      display: block;
-      font-weight: bold;
-      margin: 15px 0 8px;
-    }
-
+    button,
     input,
     textarea {
-      width: 100%;
-      border: 1px solid #ddd;
-      border-radius: 14px;
-      padding: 14px;
-      font-size: 16px;
-      font-family: inherit;
-      outline: none;
-    }
-
-    textarea {
-      min-height: 150px;
-      resize: vertical;
-    }
-
-    input:focus,
-    textarea:focus {
-      border-color: #b76cff;
-      box-shadow: 0 0 0 3px rgba(183,108,255,0.12);
-    }
-
-    .checkbox {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 15px 0;
-    }
-
-    .checkbox input {
-      width: auto;
+      font: inherit;
     }
 
     button {
-      border: 0;
-      border-radius: 14px;
-      padding: 14px 22px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      background: #8b5cf6;
-      color: white;
-      margin-top: 10px;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    button:hover {
-      opacity: 0.9;
-    }
-
-    button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    .status {
-      margin-top: 15px;
-      padding: 12px;
-      border-radius: 12px;
-      display: none;
-      line-height: 1.5;
-    }
-
-    .success {
+    img {
+      max-width: 100%;
       display: block;
-      background: #dcfce7;
-      color: #166534;
-    }
-
-    .error {
-      display: block;
-      background: #fee2e2;
-      color: #991b1b;
-    }
-
-    .info {
-      display: block;
-      background: #e0f2fe;
-      color: #075985;
-    }
-
-    .wishes {
-      display: none;
-    }
-
-    .wish {
-      background: #faf7ff;
-      border-radius: 18px;
-      padding: 20px;
-      margin: 15px 0;
-      border: 1px solid #eee;
-    }
-
-    .wish-name {
-      font-weight: bold;
-      font-size: 1.05rem;
-    }
-
-    .wish-message {
-      margin-top: 10px;
-      line-height: 1.6;
-      white-space: pre-wrap;
-    }
-
-    .wish-date {
-      margin-top: 10px;
-      font-size: 0.82rem;
-      color: #777;
     }
 
     .hidden {
       display: none !important;
     }
 
-    footer {
-      text-align: center;
-      padding: 30px 0;
-      color: #777;
-      font-size: 14px;
+    /* =========================================================
+       WISHER VIEW — deliberately clean and modern
+       ========================================================= */
+
+    #wisherView {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 15% 5%, rgba(224, 185, 190, 0.18), transparent 28%),
+        radial-gradient(circle at 90% 18%, rgba(237, 215, 196, 0.24), transparent 25%),
+        var(--w-bg);
+      overflow-x: hidden;
     }
 
-    .login-box {
-      margin-top: 25px;
-      text-align: center;
+    .wisher-shell {
+      width: min(100% - 32px, 760px);
+      margin: 0 auto;
+      padding: 28px 0 42px;
     }
 
-    .small {
-      font-size: 14px;
-      color: #777;
+    .wisher-hero {
+      text-align: center;
+      padding: 22px 8px 26px;
+    }
+
+    .hero-detail {
+      color: var(--w-accent);
+      font-size: 0.82rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+    }
+
+    .wisher-hero h1 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.5rem, 12vw, 4.8rem);
+      font-weight: 500;
+      letter-spacing: -0.045em;
+      line-height: 0.98;
+    }
+
+    .wisher-hero .subtitle {
+      margin: 13px 0 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.25rem, 5vw, 1.6rem);
+      color: var(--w-accent-dark);
+    }
+
+    .hero-stars {
+      margin-top: 14px;
+      color: #b89b7e;
+      letter-spacing: 0.3em;
+      font-size: 0.9rem;
+    }
+
+    .public-photo-card {
+      width: min(100%, 430px);
+      margin: 8px auto 28px;
+      padding: 10px 10px 16px;
+      background: var(--w-paper);
+      border: 1px solid rgba(160, 130, 115, 0.14);
+      border-radius: 20px;
+      box-shadow: var(--w-shadow);
+      transform: rotate(-0.6deg);
+    }
+
+    .public-photo-card img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 13px;
+      background: #eee7df;
+    }
+
+    .public-photo-caption {
+      text-align: center;
+      margin: 12px 4px 0;
+      color: var(--w-muted);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 0.98rem;
       line-height: 1.5;
+    }
+
+    .wisher-note {
+      max-width: 520px;
+      margin: 0 auto 28px;
+      text-align: center;
+      color: var(--w-muted);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.06rem;
+      line-height: 1.65;
+    }
+
+    .wisher-card {
+      background: rgba(255, 253, 249, 0.88);
+      border: 1px solid var(--w-line);
+      border-radius: 24px;
+      padding: 22px;
+      margin-top: 18px;
+      box-shadow: 0 12px 34px rgba(72, 52, 52, 0.06);
+      backdrop-filter: blur(8px);
+    }
+
+    .section-kicker {
+      color: var(--w-accent-dark);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+    }
+
+    .wisher-card h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.65rem, 7vw, 2.15rem);
+      font-weight: 500;
+    }
+
+    .wisher-card-intro {
+      color: var(--w-muted);
+      line-height: 1.6;
+      margin: 9px 0 20px;
+    }
+
+    .field {
+      margin-top: 17px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      font-weight: 650;
+    }
+
+    .field input,
+    .field textarea,
+    .access-input {
+      width: 100%;
+      border: 1px solid #ddd1ca;
+      border-radius: 15px;
+      background: #fff;
+      color: var(--w-ink);
+      padding: 14px 15px;
+      outline: none;
+      font-size: 16px;
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .field textarea {
+      min-height: 145px;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .access-input:focus {
+      border-color: var(--w-accent);
+      box-shadow: 0 0 0 4px rgba(183, 125, 134, 0.12);
+    }
+
+    .name-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 16px;
+      padding: 10px 0;
+      cursor: pointer;
+      line-height: 1.45;
+      color: #514947;
+      font-size: 0.93rem;
+    }
+
+    .name-option input {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 auto;
+      margin: 0;
+      accent-color: var(--w-accent);
+    }
+
+    .primary-button,
+    .unlock-button {
+      width: 100%;
+      min-height: 52px;
+      border: 0;
+      border-radius: 15px;
+      margin-top: 12px;
+      padding: 14px 18px;
+      color: #fff;
+      background: var(--w-accent-dark);
+      font-weight: 750;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(143, 93, 103, 0.18);
+      transition: transform 150ms ease, opacity 150ms ease;
+    }
+
+    .primary-button:active,
+    .unlock-button:active {
+      transform: translateY(1px);
+    }
+
+    .primary-button:disabled,
+    .unlock-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .privacy-line {
+      text-align: center;
+      color: var(--w-muted);
+      font-size: 0.88rem;
+      line-height: 1.55;
+      margin: 18px auto 0;
+      max-width: 440px;
+    }
+
+    .privacy-line span {
+      color: var(--w-accent-dark);
+    }
+
+    .access-card {
+      text-align: center;
+      padding: 24px 20px;
+    }
+
+    .access-icon {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+
+    .access-card h2 {
+      font-size: 1.55rem;
+    }
+
+    .access-card p {
+      color: var(--w-muted);
+      line-height: 1.55;
+      margin: 8px 0 17px;
+    }
+
+    .access-form {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      text-align: left;
+    }
+
+    .access-input {
+      text-align: center;
+      letter-spacing: 0.12em;
+      text-transform: none;
+      min-height: 52px;
+    }
+
+    .status {
+      display: none;
+      margin-top: 13px;
+      border-radius: 13px;
+      padding: 12px 13px;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .status.success {
+      display: block;
+      background: #edf7ee;
+      color: #35613c;
+      border: 1px solid #d3e8d5;
+    }
+
+    .status.error {
+      display: block;
+      background: #fff0f0;
+      color: #874646;
+      border: 1px solid #efd3d3;
+    }
+
+    .status.info {
+      display: block;
+      background: #f3f0ed;
+      color: #665c57;
+      border: 1px solid #e4ddd8;
+    }
+
+    .wisher-footer {
+      text-align: center;
+      color: #8b817d;
+      font-size: 0.8rem;
+      padding: 26px 0 0;
+    }
+
+    /* =========================================================
+       BIRTHDAY GIRL VIEW — completely separate scrapbook world
+       ========================================================= */
+
+    #birthdayGirlView {
+      min-height: 100vh;
+      color: var(--s-ink);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(255,255,255,0.55), transparent 25%),
+        radial-gradient(circle at 90% 25%, rgba(203, 170, 150, 0.20), transparent 28%),
+        var(--s-bg);
+      overflow-x: hidden;
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+    }
+
+    .scrapbook-page {
+      width: min(100% - 24px, 980px);
+      margin: 0 auto;
+      padding: 28px 0 55px;
+      position: relative;
+    }
+
+    .scrapbook-paper {
+      position: relative;
+      background:
+        linear-gradient(rgba(255,255,255,0.16), rgba(255,255,255,0.16)),
+        repeating-linear-gradient(
+          0deg,
+          rgba(112, 86, 63, 0.025) 0,
+          rgba(112, 86, 63, 0.025) 1px,
+          transparent 1px,
+          transparent 4px
+        ),
+        var(--s-paper);
+      border: 1px solid rgba(102, 79, 59, 0.12);
+      box-shadow: 0 24px 70px rgba(67, 50, 37, 0.15);
+      padding: 25px 18px 42px;
+      overflow: hidden;
+    }
+
+    .scrapbook-paper::before,
+    .scrapbook-paper::after {
+      content: "";
+      position: absolute;
+      width: 90px;
+      height: 25px;
+      background: rgba(218, 194, 155, 0.48);
+      top: 15px;
+      z-index: 0;
+    }
+
+    .scrapbook-paper::before {
+      left: -25px;
+      transform: rotate(-12deg);
+    }
+
+    .scrapbook-paper::after {
+      right: -25px;
+      transform: rotate(12deg);
+    }
+
+    .scrap-header {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 30px 8px 24px;
+    }
+
+    .scrap-header .tiny-note {
+      font-family: "Segoe Print", "Comic Sans MS", cursive;
+      color: var(--s-brown);
+      font-size: 0.9rem;
+      transform: rotate(-2deg);
+      display: inline-block;
+    }
+
+    .scrap-header h1 {
+      margin: 12px 0 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.7rem, 13vw, 5.6rem);
+      font-weight: 500;
+      line-height: 0.96;
+      letter-spacing: -0.045em;
+    }
+
+    .scrap-header h1 span {
+      display: block;
+      color: var(--s-pink);
+      font-size: 0.62em;
+      margin-top: 9px;
+    }
+
+    .scrap-quote {
+      max-width: 520px;
+      margin: 17px auto 0;
+      font-family: "Segoe Print", "Comic Sans MS", cursive;
+      color: #6d6259;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .doodle-row {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 17px;
+      color: #9b816b;
+      font-size: 1rem;
+    }
+
+    .scrap-section {
+      position: relative;
+      z-index: 1;
+      margin-top: 26px;
+    }
+
+    .scrap-section-title {
+      text-align: center;
+      margin: 0 0 20px;
+      font-family: "Segoe Print", "Comic Sans MS", cursive;
+      font-size: clamp(1.35rem, 6vw, 1.9rem);
+      font-weight: 500;
+      color: #5e5148;
+    }
+
+    .photo-collage {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 25px;
+      align-items: start;
+      padding: 5px 2px;
+    }
+
+    .photo-card {
+      position: relative;
+      width: min(100%, 360px);
+      margin: 0 auto;
+      padding: 9px 9px 13px;
+      background: var(--s-paper-2);
+      border: 1px solid rgba(90, 72, 55, 0.12);
+      box-shadow: 0 13px 25px rgba(68, 51, 39, 0.16);
+    }
+
+    .photo-card img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      background: #ded4c8;
+    }
+
+    .photo-card .caption {
+      margin: 9px 3px 0;
+      color: #6f645b;
+      font-family: "Segoe Print", "Comic Sans MS", cursive;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    .photo-card::before {
+      content: "";
+      position: absolute;
+      width: 72px;
+      height: 21px;
+      top: -9px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-2deg);
+      background: rgba(218, 194, 155, 0.62);
+      z-index: 2;
+    }
+
+    .photo-card:nth-child(1) { transform: rotate(-1.3deg); }
+    .photo-card:nth-child(2) { transform: rotate(1.7deg); }
+    .photo-card:nth-child(3) { transform: rotate(-2.2deg); }
+    .photo-card:nth-child(4) { transform: rotate(1deg); }
+    .photo-card:nth-child(5) { transform: rotate(-1.6deg); }
+    .photo-card:nth-child(6) { transform: rotate(2.1deg); }
+    .photo-card:nth-child(7) { transform: rotate(-0.8deg); }
+    .photo-card:nth-child(8) { transform: rotate(1.5deg); }
+
+    .photo-loading {
+      padding: 30px 10px;
+      text-align: center;
+      color: var(--s-muted);
+      font-family: "Segoe Print", "Comic Sans MS", cursive;
+    }
+
+    .private-wishes {
+      margin-top: 38px;
+    }
+
+    .wish-stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .scrap-wish {
+      position: relative;
+      padding: 23px 18px 19px;
+      background: #fbf3df;
+      border: 1px solid rgba(112, 86, 63, 0.13);
+      box-shadow: 0 10px 20px rgba(68, 51, 39, 0.10);
+    }
+
+    .scrap-wish:nth-child(odd) {
+      transform: rotate(-0.7deg);
+    }
+
+    .scrap-wish:nth-child(even) {
+      transform: rotate(0.8deg);
+      background: #f7eadf;
+    }
+
+    .scrap-wish::before {
+      content: "";
+      position: absolute;
+      width: 64px;
+      height: 18px;
+      top: -8px;
+      left: 22px;
+      background: rgba(218, 194, 155, 0.52);
+      transform: rotate(-4deg);
+    }
+
+    .scrap-wish-name {
+      font-family: "Segoe Print", "Comic Sans MS", cursive;
+      color: #765d4f;
+      font-size: 0.84rem;
+      margin-bottom: 8px;
+    }
+
+    .scrap-wish-message {
+      white-space: pre-wrap;
+      line-height: 1.7;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1rem;
+      color: #433a35;
+    }
+
+    .scrap-wish-date {
+      margin-top: 10px;
+      color: #8c7c70;
+      font-size: 0.72rem;
+    }
+
+    .closing-note {
+      text-align: center;
+      padding: 48px 12px 18px;
+    }
+
+    .closing-note .flower {
+      font-size: 1.25rem;
+      margin-bottom: 13px;
+    }
+
+    .closing-note p {
+      margin: 0;
+      font-family: "Segoe Print", "Comic Sans MS", cursive;
+      font-size: clamp(1rem, 4.5vw, 1.25rem);
+      line-height: 1.7;
+      color: #5d5148;
+    }
+
+    .lock-button {
+      display: block;
+      margin: 25px auto 0;
+      border: 1px solid rgba(90, 72, 55, 0.18);
+      background: transparent;
+      color: #66594f;
+      border-radius: 999px;
+      padding: 9px 15px;
+      cursor: pointer;
+      font-size: 0.78rem;
+    }
+
+    @media (min-width: 650px) {
+      .wisher-shell {
+        padding-top: 45px;
+      }
+
+      .wisher-card {
+        padding: 30px;
+      }
+
+      .access-form {
+        max-width: 430px;
+        margin: 0 auto;
+      }
+
+      .photo-collage {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 30px 24px;
+        padding: 10px 8px;
+      }
+
+      .photo-card:nth-child(1),
+      .photo-card:nth-child(4),
+      .photo-card:nth-child(7),
+      .photo-card:nth-child(8) {
+        grid-column: span 2;
+        width: min(100%, 500px);
+      }
+
+      .photo-card:nth-child(1) img,
+      .photo-card:nth-child(4) img,
+      .photo-card:nth-child(7) img,
+      .photo-card:nth-child(8) img {
+        aspect-ratio: 16 / 11;
+      }
+
+      .scrapbook-paper {
+        padding: 38px 45px 60px;
+      }
+    }
+
+    @media (min-width: 900px) {
+      .scrapbook-page {
+        padding-top: 45px;
+      }
+
+      .scrapbook-paper {
+        padding-left: 70px;
+        padding-right: 70px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+      }
     }
   </style>
 </head>
 
 <body>
 
-<div class="container">
+  <!-- =========================================================
+       WISHER VIEW
+       Public, clean, modern experience
+       ========================================================= -->
+  <main id="wisherView">
+    <div class="wisher-shell">
 
-  <section class="hero">
-    <div style="font-size: 55px;">🎂✨</div>
+      <header class="wisher-hero">
+        <div class="hero-detail">a little something</div>
+        <h1>Birthday Wishes</h1>
+        <p class="subtitle">For Physcho G ♡</p>
+        <div class="hero-stars">✦ · ♡ · ✦</div>
+      </header>
 
-    <h1>Birthday Wishes</h1>
-
-    <p>
-      Leave a special message for <strong>Physcho G</strong> 💖
-    </p>
-
-    <p class="small">
-      Your wish will be kept private until her birthday.
-    </p>
-  </section>
-
-
-  <!-- WISH SUBMISSION -->
-  <section class="card" id="wishSection">
-
-    <h2>💌 Leave a Birthday Wish</h2>
-
-    <p>
-      Write something special that she can read on her birthday.
-    </p>
-
-    <form id="wishForm">
-
-      <label for="senderName">
-        Your Name
-      </label>
-
-      <input
-        id="senderName"
-        type="text"
-        maxlength="100"
-        placeholder="Enter your name"
-        required
-      >
-
-      <label for="message">
-        Your Birthday Message
-      </label>
-
-      <textarea
-        id="message"
-        maxlength="2000"
-        placeholder="Write your birthday wish here..."
-        required
-      ></textarea>
-
-      <label class="checkbox">
-        <input
-          type="checkbox"
-          id="showName"
-          checked
+      <figure class="public-photo-card">
+        <img
+          src="https://qnfmhtdocukgyzjybfgt.supabase.co/storage/v1/object/public/public-birthday/public.jpg"
+          alt="Hand-drawn birthday photo"
+          loading="eager"
         >
-        Show my name with my wish
-      </label>
+        <figcaption class="public-photo-caption">
+          A little message today, a smile for her tomorrow.
+        </figcaption>
+      </figure>
 
-      <button type="submit" id="submitButton">
-        Send Birthday Wish 💖
-      </button>
+      <p class="wisher-note">
+        Leave something she'll be able to discover when her birthday arrives.
+      </p>
 
-    </form>
+      <section class="wisher-card" id="wishSection">
+        <div class="section-kicker">For her birthday</div>
+        <h2>Leave a Wish</h2>
+        <p class="wisher-card-intro">
+          Write a few words she'll get to keep for her special day.
+        </p>
 
-    <div id="formStatus" class="status"></div>
+        <form id="wishForm">
+          <div class="field">
+            <label for="senderName">Your Name</label>
+            <input
+              id="senderName"
+              type="text"
+              maxlength="100"
+              autocomplete="name"
+              placeholder="Enter your name"
+              required
+            >
+          </div>
 
-  </section>
+          <div class="field">
+            <label for="message">Your Birthday Message</label>
+            <textarea
+              id="message"
+              maxlength="2000"
+              placeholder="Write your birthday wish here..."
+              required
+            ></textarea>
+          </div>
 
+          <label class="name-option" for="showName">
+            <input type="checkbox" id="showName" checked>
+            <span>Let her know who sent it</span>
+          </label>
 
-  <!-- BIRTHDAY SECTION -->
-  <section class="card hidden" id="birthdaySection">
+          <button class="primary-button" type="submit" id="submitButton">
+            Send Wish
+          </button>
+        </form>
 
-    <h2>🎉 Birthday Wishes 🎉</h2>
+        <div id="formStatus" class="status" role="status" aria-live="polite"></div>
 
-    <p>
-      Here are the beautiful wishes waiting for you. 💖
-    </p>
+        <p class="privacy-line">
+          Your wish is private and will be revealed on her birthday. <span>♡</span>
+        </p>
+      </section>
 
-    <div id="wishesContainer">
-      Loading wishes...
+      <section class="wisher-card access-card" id="accessCard">
+        <div class="access-icon">✦</div>
+        <div class="section-kicker">For the birthday girl</div>
+        <h2 id="accessHeading">Something special is waiting...</h2>
+        <p id="accessDescription">
+          Come back on August 29 and enter the birthday access code.
+        </p>
+
+        <form class="access-form" id="accessForm">
+          <label for="accessCode" class="hidden">Birthday access code</label>
+          <input
+            class="access-input"
+            id="accessCode"
+            type="password"
+            inputmode="text"
+            autocomplete="off"
+            autocapitalize="none"
+            spellcheck="false"
+            maxlength="100"
+            placeholder="Enter birthday access code"
+            aria-label="Birthday access code"
+            required
+          >
+          <button class="unlock-button" type="submit" id="unlockButton">
+            Unlock
+          </button>
+        </form>
+
+        <div id="accessStatus" class="status" role="status" aria-live="polite"></div>
+      </section>
+
+      <footer class="wisher-footer">
+        A small corner of the internet, made just for her.
+      </footer>
+
     </div>
-
-  </section>
-
-
-  <footer>
-    Made with ❤️ for a very special birthday.
-  </footer>
-
-</div>
+  </main>
 
 
-<!-- SUPABASE -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- =========================================================
+       BIRTHDAY GIRL VIEW
+       Private scrapbook experience
+       ========================================================= -->
+  <main id="birthdayGirlView" class="hidden">
+    <div class="scrapbook-page">
+      <article class="scrapbook-paper">
 
-<script>
+        <header class="scrap-header">
+          <div class="tiny-note">a little page for you ✿</div>
+          <h1>
+            Happy Birthday,
+            <span>Physcho G ♡</span>
+          </h1>
+          <p class="scrap-quote">
+            May this year leave you with more reasons to smile,
+            more little moments to remember, and more reasons to be yourself.
+          </p>
+          <div class="doodle-row">
+            <span>✦</span>
+            <span>♡</span>
+            <span>✿</span>
+            <span>♡</span>
+            <span>✦</span>
+          </div>
+        </header>
 
-  /* =========================================================
-     SUPABASE CONNECTION
-     ========================================================= */
+        <section class="scrap-section" aria-labelledby="memoryHeading">
+          <h2 class="scrap-section-title" id="memoryHeading">
+            A few little memories
+          </h2>
 
-  const SUPABASE_URL = "https://qnfmhtdocukgyzjybfgt.supabase.co";
+          <div id="photoCollage" class="photo-collage">
+            <div class="photo-loading" id="photoLoading">
+              Opening the photo album...
+            </div>
+          </div>
+        </section>
 
-  const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_qmwAIM8mGojJcDvTPloF1w_27QmTs90";
+        <section class="scrap-section private-wishes" aria-labelledby="wishHeading">
+          <h2 class="scrap-section-title" id="wishHeading">
+            And now, some words from the people who care.
+          </h2>
 
+          <div id="privateWishesContainer" class="wish-stack">
+            <div class="photo-loading">Gathering the little messages...</div>
+          </div>
+        </section>
 
-  const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-  );
+        <footer class="closing-note">
+          <div class="flower">✿</div>
+          <p>
+            Keep smiling.<br>
+            Keep being you. ♡
+          </p>
+          <button type="button" class="lock-button" id="lockButton">
+            Lock birthday page
+          </button>
+        </footer>
 
-
-  /* =========================================================
-     BIRTHDAY SETTINGS
-     ========================================================= */
-
-  /*
-     Birthday starts:
-     29 August at 12:01 AM
-
-     IMPORTANT:
-     This uses India Standard Time (IST).
-  */
-
-  const BIRTHDAY_START = new Date(
-    "2026-08-29T00:01:00+05:30"
-  );
-
-
-  /*
-     Wishes can be submitted before and during
-     the birthday.
-
-     We are not putting an early start restriction here.
-     That means the collection form remains available
-     whenever the website is online.
-  */
+      </article>
+    </div>
+  </main>
 
 
-  /* =========================================================
-     CHECK BIRTHDAY TIME
-     ========================================================= */
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  function birthdayHasStarted() {
+  <script>
+    /* =========================================================
+       SUPABASE
+       ========================================================= */
 
-    const now = new Date();
+    const SUPABASE_URL = "https://qnfmhtdocukgyzjybfgt.supabase.co";
 
-    return now >= BIRTHDAY_START;
-  }
+    const SUPABASE_PUBLISHABLE_KEY =
+      "sb_publishable_qmwAIM8mGojJcDvTPloF1w_27QmTs90";
+
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
 
 
-  /* =========================================================
-     SHOW BIRTHDAY SECTION
-     ========================================================= */
+    /* =========================================================
+       BIRTHDAY SETTINGS
+       ========================================================= */
 
-  async function checkBirthdayStatus() {
+    const BIRTHDAY_START = new Date(
+      "2026-08-29T00:01:00+05:30"
+    );
 
-    const birthdaySection =
-      document.getElementById("birthdaySection");
+    const BIRTHDAY_AUTH_EMAIL =
+      "birthdaygirl29@gmail.com";
 
-    if (!birthdayHasStarted()) {
-
-      birthdaySection.classList.add("hidden");
-
-      return;
-    }
+    const PRIVATE_BUCKET = "private-birthday";
 
     /*
-      The birthday section is intentionally shown
-      only after the birthday starts.
+      IMPORTANT:
+      The password/access code is NEVER stored here.
+      The birthday girl types it into the access box.
     */
 
-    birthdaySection.classList.remove("hidden");
+    /*
+      These are the filenames we will use when the private
+      photographs are uploaded.
 
-    await loadWishes();
-  }
+      Upload the 8 photos into:
+      private-birthday/
+
+      using these exact names, or change these names here
+      to match the names you choose.
+    */
+    const PRIVATE_PHOTOS = [
+      {
+        file: "photo1.jpg",
+        caption: "A little moment worth keeping."
+      },
+      {
+        file: "photo2.jpg",
+        caption: "One for the memory book."
+      },
+      {
+        file: "photo3.jpg",
+        caption: "Another little piece of today."
+      },
+      {
+        file: "photo4.jpg",
+        caption: "Some moments deserve a place here."
+      },
+      {
+        file: "photo5.jpg",
+        caption: "For the days you'll look back on."
+      },
+      {
+        file: "photo6.jpg",
+        caption: "A small memory, kept close."
+      },
+      {
+        file: "photo7.jpg",
+        caption: "Here's to all the little moments."
+      },
+      {
+        file: "photo8.jpg",
+        caption: "And one more for the album."
+      }
+    ];
 
 
-  /* =========================================================
-     SUBMIT WISH
-     ========================================================= */
+    /* =========================================================
+       ELEMENTS
+       ========================================================= */
 
-  document
-    .getElementById("wishForm")
-    .addEventListener("submit", async function(event) {
+    const wisherView =
+      document.getElementById("wisherView");
 
+    const birthdayGirlView =
+      document.getElementById("birthdayGirlView");
+
+    const wishSection =
+      document.getElementById("wishSection");
+
+    const accessCard =
+      document.getElementById("accessCard");
+
+    const wishForm =
+      document.getElementById("wishForm");
+
+    const formStatus =
+      document.getElementById("formStatus");
+
+    const submitButton =
+      document.getElementById("submitButton");
+
+    const accessForm =
+      document.getElementById("accessForm");
+
+    const accessCode =
+      document.getElementById("accessCode");
+
+    const accessStatus =
+      document.getElementById("accessStatus");
+
+    const unlockButton =
+      document.getElementById("unlockButton");
+
+    const accessHeading =
+      document.getElementById("accessHeading");
+
+    const accessDescription =
+      document.getElementById("accessDescription");
+
+    const photoCollage =
+      document.getElementById("photoCollage");
+
+    const privateWishesContainer =
+      document.getElementById("privateWishesContainer");
+
+    const lockButton =
+      document.getElementById("lockButton");
+
+
+    /* =========================================================
+       TIME
+       ========================================================= */
+
+    function birthdayHasStarted() {
+      return new Date() >= BIRTHDAY_START;
+    }
+
+
+    /* =========================================================
+       UI HELPERS
+       ========================================================= */
+
+    function showStatus(element, type, message) {
+      element.className = "status " + type;
+      element.textContent = message;
+    }
+
+    function clearStatus(element) {
+      element.className = "status";
+      element.textContent = "";
+    }
+
+
+    /* =========================================================
+       WISH SUBMISSION
+       ========================================================= */
+
+    wishForm.addEventListener("submit", async function(event) {
       event.preventDefault();
 
       const senderName =
@@ -392,211 +1056,409 @@
       const showName =
         document.getElementById("showName").checked;
 
-      const button =
-        document.getElementById("submitButton");
-
-      const status =
-        document.getElementById("formStatus");
-
-
       if (!senderName || !message) {
-
-        status.className = "status error";
-
-        status.textContent =
-          "Please enter your name and birthday message.";
-
+        showStatus(
+          formStatus,
+          "error",
+          "Please enter your name and birthday message."
+        );
         return;
       }
 
-
-      button.disabled = true;
-
-      button.textContent = "Sending...";
-
+      submitButton.disabled = true;
+      submitButton.textContent = "Sending...";
+      clearStatus(formStatus);
 
       try {
-
         const { error } =
           await supabaseClient
             .from("birthday_wishes")
             .insert({
-
               sender_name: senderName,
-
               message: message,
-
               show_name: showName
-
             });
 
-
         if (error) {
-
           throw error;
-
         }
 
+        showStatus(
+          formStatus,
+          "success",
+          "Your birthday wish has been saved successfully! "
+        );
 
-        status.className = "status success";
-
-        status.textContent =
-          "Your birthday wish has been saved successfully! 💖";
-
-
-        document
-          .getElementById("wishForm")
-          .reset();
-
+        wishForm.reset();
 
       } catch (error) {
-
         console.error(error);
 
-        status.className = "status error";
+        showStatus(
+          formStatus,
+          "error",
+          "Something went wrong while saving your wish. Please try again."
+        );
 
-        status.textContent =
-          "Something went wrong while saving your wish. Please try again.";
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Send Wish";
+      }
+    });
 
+
+    /* =========================================================
+       BIRTHDAY ACCESS
+       ========================================================= */
+
+    accessForm.addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      clearStatus(accessStatus);
+
+      /*
+        IMPORTANT:
+        We check the birthday time BEFORE authenticating.
+        This means the private experience cannot be unlocked
+        before 29 Aug 2026 at 12:01 AM IST.
+      */
+      if (!birthdayHasStarted()) {
+        showStatus(
+          accessStatus,
+          "info",
+          "The birthday page is still locked. Come back on August 29."
+        );
+        return;
       }
 
+      const password =
+        accessCode.value;
 
-      button.disabled = false;
+      if (!password) {
+        showStatus(
+          accessStatus,
+          "error",
+          "Please enter the birthday access code."
+        );
+        return;
+      }
 
-      button.textContent =
-        "Send Birthday Wish 💖";
+      unlockButton.disabled = true;
+      unlockButton.textContent = "Unlocking...";
 
+      try {
+        /*
+          The password is entered by the user at runtime.
+          It is never stored in this file.
+        */
+        const { data, error } =
+          await supabaseClient.auth.signInWithPassword({
+            email: BIRTHDAY_AUTH_EMAIL,
+            password: password
+          });
+
+        if (error) {
+          throw error;
+        }
+
+        /*
+          Confirm that the returned account is the dedicated
+          birthday account. This prevents an unexpected
+          authenticated session from opening the scrapbook.
+        */
+        const authenticatedUser =
+          data && data.user ? data.user : null;
+
+        if (
+          !authenticatedUser ||
+          authenticatedUser.id !==
+            "5286a7c9-9552-40f5-82a5-2c44e8b4aeb7"
+        ) {
+          await supabaseClient.auth.signOut();
+          throw new Error("Unauthorized account.");
+        }
+
+        /*
+          The database/storage RLS policies also enforce:
+          birthday account + birthday time.
+        */
+        await openBirthdayGirlView();
+
+      } catch (error) {
+        console.error(error);
+
+        showStatus(
+          accessStatus,
+          "error",
+          "That access code isn't correct. Please try again."
+        );
+
+        accessCode.select();
+
+      } finally {
+        unlockButton.disabled = false;
+        unlockButton.textContent = "Unlock";
+      }
     });
 
 
-  /* =========================================================
-     LOAD WISHES
-     ========================================================= */
+    /* =========================================================
+       OPEN PRIVATE BIRTHDAY VIEW
+       ========================================================= */
 
-  async function loadWishes() {
+    async function openBirthdayGirlView() {
+      if (!birthdayHasStarted()) {
+        throw new Error("Birthday has not started.");
+      }
 
-    const container =
-      document.getElementById("wishesContainer");
+      wisherView.classList.add("hidden");
+      birthdayGirlView.classList.remove("hidden");
 
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
 
-    if (!birthdayHasStarted()) {
-
-      return;
-
+      await Promise.all([
+        loadPrivatePhotos(),
+        loadPrivateWishes()
+      ]);
     }
 
 
-    const { data, error } =
-      await supabaseClient
-        .from("birthday_wishes")
-        .select("*")
-        .order("created_at", {
-          ascending: true
+    /* =========================================================
+       PRIVATE PHOTO LOADING
+       ========================================================= */
+
+    async function loadPrivatePhotos() {
+      photoCollage.innerHTML = "";
+
+      const photoResults = await Promise.all(
+        PRIVATE_PHOTOS.map(async function(photo) {
+          const { data, error } =
+            await supabaseClient
+              .storage
+              .from(PRIVATE_BUCKET)
+              .createSignedUrl(photo.file, 60 * 60);
+
+          return {
+            ...photo,
+            url: data ? data.signedUrl : null,
+            error: error
+          };
+        })
+      );
+
+      const successfulPhotos =
+        photoResults.filter(function(photo) {
+          return Boolean(photo.url);
         });
 
+      if (successfulPhotos.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "photo-loading";
+        empty.textContent =
+          "The photo album is ready, but the private photographs haven't been added yet.";
+        photoCollage.appendChild(empty);
+        return;
+      }
 
-    if (error) {
+      successfulPhotos.forEach(function(photo) {
+        const card =
+          document.createElement("figure");
 
-      console.error(error);
+        card.className = "photo-card";
 
-      container.innerHTML =
-        "<p>Unable to load wishes right now.</p>";
+        const image =
+          document.createElement("img");
 
-      return;
+        image.src = photo.url;
+        image.alt = "Private birthday photograph";
+        image.loading = "lazy";
 
+        const caption =
+          document.createElement("figcaption");
+
+        caption.className = "caption";
+        caption.textContent = photo.caption;
+
+        card.appendChild(image);
+        card.appendChild(caption);
+
+        photoCollage.appendChild(card);
+      });
+
+      /*
+        If some files are missing, show the photos that exist
+        rather than exposing storage errors or paths.
+      */
+      if (
+        successfulPhotos.length <
+        PRIVATE_PHOTOS.length
+      ) {
+        const note =
+          document.createElement("div");
+
+        note.className = "photo-loading";
+        note.textContent =
+          "Some pages of the album are still waiting to be added. ♡";
+
+        photoCollage.appendChild(note);
+      }
     }
 
 
-    if (!data || data.length === 0) {
+    /* =========================================================
+       PRIVATE WISH LOADING
+       ========================================================= */
 
-      container.innerHTML =
-        "<p>No wishes have been submitted yet. 💕</p>";
+    async function loadPrivateWishes() {
+      privateWishesContainer.innerHTML = "";
 
-      return;
+      const { data, error } =
+        await supabaseClient
+          .from("birthday_wishes")
+          .select("*")
+          .order("created_at", {
+            ascending: true
+          });
 
+      if (error) {
+        console.error(error);
+
+        const errorMessage =
+          document.createElement("div");
+
+        errorMessage.className = "photo-loading";
+        errorMessage.textContent =
+          "The wishes couldn't be opened right now. Please try again.";
+
+        privateWishesContainer.appendChild(errorMessage);
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        const empty =
+          document.createElement("div");
+
+        empty.className = "photo-loading";
+        empty.textContent =
+          "No wishes have arrived yet. ♡";
+
+        privateWishesContainer.appendChild(empty);
+        return;
+      }
+
+      data.forEach(function(wish) {
+        const card =
+          document.createElement("article");
+
+        card.className = "scrap-wish";
+
+        const name =
+          document.createElement("div");
+
+        name.className = "scrap-wish-name";
+
+        name.textContent =
+          wish.show_name
+            ? wish.sender_name
+            : "Someone special";
+
+        const message =
+          document.createElement("div");
+
+        message.className = "scrap-wish-message";
+        message.textContent = wish.message;
+
+        const date =
+          document.createElement("div");
+
+        date.className = "scrap-wish-date";
+
+        date.textContent =
+          wish.created_at
+            ? new Date(
+                wish.created_at
+              ).toLocaleString(
+                "en-IN",
+                {
+                  dateStyle: "medium",
+                  timeStyle: "short"
+                }
+              )
+            : "";
+
+        card.appendChild(name);
+        card.appendChild(message);
+
+        if (date.textContent) {
+          card.appendChild(date);
+        }
+
+        privateWishesContainer.appendChild(card);
+      });
     }
 
 
-    container.innerHTML = "";
+    /* =========================================================
+       LOCK / SIGN OUT
+       ========================================================= */
 
+    lockButton.addEventListener("click", async function() {
+      await supabaseClient.auth.signOut();
 
-    data.forEach(function(wish) {
+      birthdayGirlView.classList.add("hidden");
+      wisherView.classList.remove("hidden");
 
-      const wishElement =
-        document.createElement("div");
+      accessCode.value = "";
+      clearStatus(accessStatus);
 
-      wishElement.className = "wish";
-
-
-      const name =
-        wish.show_name
-          ? escapeHTML(wish.sender_name)
-          : "Someone special 💖";
-
-
-      const message =
-        escapeHTML(wish.message);
-
-
-      const date =
-        wish.created_at
-          ? new Date(wish.created_at).toLocaleString(
-              "en-IN",
-              {
-                dateStyle: "medium",
-                timeStyle: "short"
-              }
-            )
-          : "";
-
-
-      wishElement.innerHTML = `
-
-        <div class="wish-name">
-          ${name}
-        </div>
-
-        <div class="wish-message">
-          ${message}
-        </div>
-
-        <div class="wish-date">
-          ${date}
-        </div>
-
-      `;
-
-
-      container.appendChild(wishElement);
-
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     });
 
-  }
 
+    /* =========================================================
+       INITIAL STATE
+       ========================================================= */
 
-  /* =========================================================
-     SECURITY HELPER
-     ========================================================= */
+    async function initializePage() {
+      /*
+        Never automatically open the private scrapbook simply
+        because a browser has a Supabase session.
 
-  function escapeHTML(text) {
+        The birthday access action is explicit.
+      */
 
-    const div =
-      document.createElement("div");
+      const { data } =
+        await supabaseClient.auth.getSession();
 
-    div.textContent = text;
+      if (
+        data &&
+        data.session &&
+        data.session.user &&
+        data.session.user.id !==
+          "5286a7c9-9552-40f5-82a5-2c44e8b4aeb7"
+      ) {
+        await supabaseClient.auth.signOut();
+      }
 
-    return div.innerHTML;
+      /*
+        Before the birthday, keep the access area visible
+        but make the timing clear.
+      */
+      if (birthdayHasStarted()) {
+        accessHeading.textContent =
+          "The scrapbook is waiting.";
+        accessDescription.textContent =
+          "Enter the birthday access code to open it.";
+      }
+    }
 
-  }
-
-
-  /* =========================================================
-     START
-     ========================================================= */
-
-  checkBirthdayStatus();
-
-</script>
-
+    initializePage();
+  </script>
 </body>
 </html>
