@@ -1956,9 +1956,10 @@
           </p>
 
           <img
-  src="photo1.jpg"
+  id="endingPhoto"
+  src=""
   alt="One last photo ♡"
-  >
+>
 
 <p class="ending-text">
   Some people become memories.<br>
@@ -2972,17 +2973,31 @@ return data?.signedUrl || null;
 
     async function showWishIntroduction() {
 
-      showScreen("wishIntro");
+  showScreen("wishIntro");
 
-      wishCount.textContent =
-        "...";
+  const endingPhoto =
+    document.getElementById("endingPhoto");
 
-      await loadPrivateWishes();
+  if (endingPhoto) {
 
-      wishCount.textContent =
-        wishes.length;
+    const url =
+      await getPrivatePhotoUrl("photo1.jpg");
 
+    if (url) {
+      endingPhoto.src = url;
     }
+
+  }
+
+  wishCount.textContent =
+    "...";
+
+  await loadPrivateWishes();
+
+  wishCount.textContent =
+    wishes.length;
+
+}
 
 
     /* =========================================================
