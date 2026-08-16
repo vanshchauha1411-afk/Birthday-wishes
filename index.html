@@ -1232,11 +1232,40 @@
         transition-duration: .01ms !important;
       }
     }
-  </style>
+ #musicToggleButton {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 9999;
+  width: 46px;
+  height: 46px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,.88);
+  box-shadow: 0 8px 20px rgba(70,55,50,.15);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+    #storyImage {
+  width: 100%;
+  height: auto;
+  max-height: 65vh;
+  object-fit: contain;
+  display: block;
+} </style>
 </head>
 
 <body>
-
+<audio id="birthdayMusic" src="birthday.mp3" loop preload="auto"></audio><button
+  type="button"
+  id="musicToggleButton"
+  aria-label="Mute music"
+>
+  🔊
+</button>
   <!-- =========================================================
        WISHER VIEW
        EXISTING PUBLIC EXPERIENCE
@@ -2253,6 +2282,43 @@ Happy birthday. ♡
 
     const storyNextButton =
       document.getElementById("storyNextButton");
+    
+    const birthdayMusic =
+  document.getElementById("birthdayMusic");
+
+const musicToggleButton =
+  document.getElementById("musicToggleButton");
+
+musicToggleButton.addEventListener(
+  "click",
+  function() {
+
+    if (birthdayMusic.muted) {
+
+      birthdayMusic.muted = false;
+
+      musicToggleButton.textContent = "🔊";
+
+      musicToggleButton.setAttribute(
+        "aria-label",
+        "Mute music"
+      );
+
+    } else {
+
+      birthdayMusic.muted = true;
+
+      musicToggleButton.textContent = "🔇";
+
+      musicToggleButton.setAttribute(
+        "aria-label",
+        "Unmute music"
+      );
+
+    }
+
+  }
+);
 
     const wishCount =
       document.getElementById("wishCount");
@@ -2310,9 +2376,6 @@ Happy birthday. ♡
 
     const musicToggle =
       document.getElementById("musicToggle");
-
-    const birthdayMusic =
-      document.getElementById("birthdayMusic");
 
     const logoutButton =
       document.getElementById("logoutButton");
@@ -2603,6 +2666,13 @@ Happy birthday. ♡
         currentStoryIndex = 0;
 
         showScreen("story");
+    birthdayMusic.currentTime = 0;
+
+    birthdayMusic.play().catch(
+      function(error) {
+        console.log("Music could not start:", error);
+      }
+    );
 
         renderStory();
 
