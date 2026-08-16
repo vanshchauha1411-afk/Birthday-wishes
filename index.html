@@ -2716,17 +2716,20 @@ musicToggleButton.addEventListener(
       60 * 60 * 24
     );
 
-  if (error) {
-    console.error(
-      "Photo error:",
-      filename,
-      error
-    );
+ if (error) {
+  console.error(
+    "Photo error:",
+    filename,
+    error
+  );
 
-    return null;
-  }
+  return null;
+}
 
-  return data?.signedUrl || null;
+console.log("SIGNED URL:", data?.signedUrl);
+console.log("PHOTO ERROR:", error);
+
+return data?.signedUrl || null;
 }
 
 
