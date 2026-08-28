@@ -3627,7 +3627,12 @@ return data?.signedUrl || null;
           "Sending...";
 
         clearStatus(formStatus);
-
+        
+console.log("WISH DEBUG:", {
+  senderName,
+  message,
+  showName
+});
         try {
 
           const {
