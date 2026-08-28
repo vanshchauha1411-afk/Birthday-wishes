@@ -3393,36 +3393,38 @@ return data?.signedUrl || null;
        SECRET BALLOON
        ========================================================= */
 
-    function popSecretBalloon() {
+   function popSecretBalloon() {
 
-      if (secretPopped) {
-        return;
-      }
+  if (secretPopped) {
+    return;
+  }
 
-      secretPopped = true;
+  secretPopped = true;
 
-      secretBalloon.style.transition =
-        "transform .25s ease, opacity .25s ease";
+  secretBalloon.style.transition =
+    "transform .25s ease, opacity .25s ease";
 
-      secretBalloon.style.transform =
-        "scale(1.35)";
+  secretBalloon.style.transform =
+    "scale(1.35)";
 
-      createConfetti(70);
+  createConfetti(70);
 
-      setTimeout(
-  function() {
+  setTimeout(
+    function() {
 
-    secretBalloon.style.opacity = "0";
+      secretBalloon.style.opacity =
+        "0";
 
-    secretMessage.textContent =
-      "Congratulations! You successfully popped a ballon containing exactly... NOTHING just like Garima's brain. WORTH IT hehe. ♡";
+      secretMessage.textContent =
+        "Congratulations! You successfully popped a ballon containing exactly... NOTHING just like Garima's brain. WORTH IT hehe. ♡";
 
-    finishBirthdayButton.classList.remove("hidden");
+      finishBirthdayButton.classList.remove("hidden");
 
-  },
-  2000
-);
+    },
+    2000
+  );
 
+}
     secretBalloon.addEventListener(
       "click",
       popSecretBalloon
