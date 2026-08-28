@@ -3412,17 +3412,16 @@ return data?.signedUrl || null;
       setTimeout(
   function() {
 
-    secretBalloon.style.opacity =
-      "0";
+    secretBalloon.style.opacity = "0";
 
     secretMessage.textContent =
       "Congratulations! You successfully popped a ballon containing exactly... NOTHING just like Garima's brain. WORTH IT hehe. ♡";
 
-    finishBirthdayButton
-      .classList.remove("hidden");
+    finishBirthdayButton.classList.remove("hidden");
 
   },
-
+  2000
+);
 
     secretBalloon.addEventListener(
       "click",
